@@ -6,9 +6,10 @@ import ChatIntro from "./ChatIntro";
 import ChatDialog from "./ChatDialog";
 
 export default function Chat() {
+  const userDataCache = localStorage.getItem(`nisbi-chatbot`);
   const [showBubble, setShowBubble] = useState(false);
   const [showChatBox, setShowChatBox] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<any>(JSON.parse(userDataCache!));
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,6 +26,7 @@ export default function Chat() {
   };
 
   const handleStartChat = (data: any) => {
+    localStorage.setItem(`nisbi-chatbot`, JSON.stringify(data));
     setUserData(data);
   };
 
