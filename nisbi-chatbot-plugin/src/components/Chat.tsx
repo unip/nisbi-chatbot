@@ -3,10 +3,12 @@ import { AnimatePresence, motion } from "motion/react";
 import iconChat from "../assets/logo-chat-ai.svg";
 import iconClose from "../assets/icon-close.svg";
 import ChatIntro from "./ChatIntro";
+import ChatDialog from "./ChatDialog";
 
 export default function Chat() {
   const [showBubble, setShowBubble] = useState(false);
   const [showChatBox, setShowChatBox] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,6 +22,10 @@ export default function Chat() {
 
   const handleToggleChatbox = () => {
     setShowChatBox((prev) => !prev);
+  };
+
+  const handleStartChat = (data: any) => {
+    setUserData(data);
   };
 
   return (
@@ -50,7 +56,11 @@ export default function Chat() {
             exit={{ opacity: 0, width: 0, height: 0 }}
             className="chatbox flex bg-white shadow-lg rounded-lg absolute right-5 bottom-[100px] border border-gray-200 overflow-hidden"
           >
-            <ChatIntro />
+            {!userData ? (
+              <ChatIntro onStartChat={handleStartChat} />
+            ) : (
+              <ChatDialog userData={userData} />
+            )}
           </motion.div>
         )}
       </AnimatePresence>

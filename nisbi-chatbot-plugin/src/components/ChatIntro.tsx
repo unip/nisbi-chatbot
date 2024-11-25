@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import logoNisbi from "../assets/logo-nisbi.svg";
 import imgRobot from "../assets/image-robot-upload.svg";
 
-export default function ChatIntro() {
+export default function ChatIntro({ onStartChat }: { onStartChat: any }) {
   const [pageState, setPageState] = useState<"intro" | "form">("intro");
   const [errorMessage, setErrorMessage] = useState<{
     fullName?: string;
@@ -27,6 +27,7 @@ export default function ChatIntro() {
 
     setErrorMessage(null);
     console.log({ data });
+    onStartChat(data);
   };
 
   return (
